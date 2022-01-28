@@ -1,0 +1,89 @@
+
+        <section>
+            <h1>MoPa Corporation</h1>
+            <h2>Product Manager</h2>
+        </section>
+        <section>
+            <div>This page will allow the editing of a Product's attributes and allows for the editing of the Products's BOM.</div>
+        </section>
+        <section>
+            <br>
+            <br>
+            <form id="updateProductAttributes" action="./products" method="POST">
+                <fieldset>
+                    <legend>PRODUCT ATTRIBUTES</legend>
+                    <br>
+                    {{#each productInfo}}
+                    <div> Product ID: {{productID}}</div>
+                    <div>
+                    <label>Product Name:
+                        <input type="text" name="product_name_input" size="30" maxlength="100" value="{{productName}}">
+                    </label>
+                    </div>
+                    <div>
+                        <label>Manufacturing Time (Hours):
+                            <input type="number" name="product_mfg_time_input" size="10" maxlength="20" value={{productMfgTimeHours}}>
+                        </label>
+                    </div>
+                    <div>
+                        <label>Current Inventory:
+                            <input type="number" name="product_inventory_input" size="10" maxlength="20" value={{productInventory}}>
+                        </label>
+                    </div>
+                    <div>
+                        <label>Target Retail Price:
+                            <input type="number" step="0.01" name="product_target_price_input" size="10" maxlength="20" value={{productSalePrice}}>
+                        </label>
+                    </div>
+                    <input type="hidden" name="productID" value={{productID}}>
+                    <br>
+                    <div>
+                        <input id="updateProduct_submit" type="submit" name="submit_type" value="Update Product Attributes">
+                    </div>
+                    {{/each}}
+                </fieldset>
+                <br>
+            </form>
+        </section>
+        <section>        
+            <fieldset>
+                <legend>PRODUCT BOM</legend>
+                <table>
+                    <thead>
+                        <th>Part Name</th>
+                        <th>Qty.</th>
+                    </thead>
+                    <tbody>
+                        {{#each bomInfo}}
+                        <tr>
+                            <td>{{partName}}</td>
+                            <td>x{{quantityParts}}</td>
+                            <td>
+                                <form id="removeBOMitem" action="/product_manager" method="POST">
+                                    <input type="hidden" name="partID" value={{partID}}>
+                                    <input type="hidden" name="productID" value={{productID}}>
+                                    <input id="removeBOMitem_submit" type="submit" name="submit_type" value="Remove Part(s)">
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <br>
+                <fieldset>
+                    <legend>ADD NEW PART TO BOM OR UPDATE BOM PART QTY</legend>
+                    <form id="addBOMitem" action="/product_manager" method="POST">
+                        Part Name: <select name="partID">
+                            {{#each partsList}}
+                            <option value="{{partID}}">{{partName}}</option>
+                            {{/each}}
+                        </select>
+                        Qty: <input type="number" name="qty_input" size="3" maxlength="3" min="1" value="1">
+                        {{#each productInfo}}
+                        <input type="hidden" name="productID" value={{productID}}>
+                        <input id="addBOMitem_submit" type="submit" name="submit_type" value="Add Part To BOM/Update Existing Part Qty">
+                        {{/each}}
+                    </form>
+                </fieldset>
+            </fieldset>
+        </section>

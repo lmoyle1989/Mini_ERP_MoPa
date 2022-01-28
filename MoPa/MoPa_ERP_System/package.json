@@ -1,0 +1,17 @@
+{
+  "name": "340_project",
+  "version": "1.0.0",
+  "description": "MoPa Corp CS340 Project",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lucas Moyle, Sung Hyun Pak",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "mysql": "^2.18.1"
+  }
+}

@@ -1,0 +1,80 @@
+
+<section>
+    <h1>MoPa Corporation</h1>
+    <h2>Order Creator</h2>
+</section>
+<section>
+    <div>This page allows the user to create a new order for a selected customer whom also has a existing address in the database.</div>
+</section>
+<br>
+{{#each customer}}
+<section>
+    <h3>Order History for <u>{{customerFirstName}} {{customerLastName}}</u></h3>
+</section>
+{{/each}}
+<section>
+    <table>
+        <thead>
+            <th>Order ID</th>
+            <th>Order Sale Price</th>
+            <th>Entry Date</th>
+            <th>Due Date</th>
+            <th>Tracking Number</th>
+            <th>Shipping Address</th>
+        </thead>
+        {{#each orders}}
+        <tr>
+            <td>{{orderID}}</td>
+            <td>{{orderSalePrice}}</td>
+            <td>{{orderEntryDate}}</td>
+            <td>{{orderDueDate}}</td>
+            <td>{{orderTrackingNumber}}</td>
+            <td>{{addressStreet}} {{addressCity}}, {{addressState}}, {{addressZipCode}}</td>
+            <td>
+                <form id="updateorder" action="/order_editor" method="GET">
+                    <input type="hidden" name="orderID" value={{orderID}}>
+                    <input id="updateorder_submit" type="submit" value="View/Add Order Items">
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</section>
+
+<br>
+<section>
+    <form id="addorder" action="/order_creator" method="POST">
+        <fieldset>
+            <legend>ADD NEW ORDER</legend>
+            <div>
+                Select Address: <select name="addressID" required>
+                    {{#each addresses}}
+                    <option value="{{addressID}}">{{addressStreet}} {{addressCity}} {{addressState}} {{addressZipCode}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div>
+                <label>Order Sale Price:
+                    <input type="number" step="0.01" name="price_input" size="10" maxlength="20">
+                </label>
+            </div>
+            <div>
+                <label>Order Due Date:
+                    <input type="date" name="due_date_input" size="30" maxlength="100">
+                </label>
+            </div>
+            <div>
+                <label>Assign Tracking Number:
+                    <input type="number" name="tracking_input" size="10" maxlength="20">
+                </label>
+            </div>
+            {{#each customer}}
+            <div>
+                <input type="hidden" name="customerID" value={{customerID}}>
+                <input id="addorder_submit" type="submit" name="submit_type" value="Add Order">
+            </div>
+            {{/each}}
+        </fieldset>
+    </form>
+    <br>
+</section>

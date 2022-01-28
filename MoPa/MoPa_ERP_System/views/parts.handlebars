@@ -1,0 +1,79 @@
+<section>
+    <h1>MoPa Corporation</h1>
+    <h2>Part Management</h2>
+</section>
+<section>
+    <div>On this page the user can view all Parts in the database, add a new Part, and delete Parts.</div>
+</section>
+<br>
+<section>
+    <form id="addpart" action="/parts" method="POST">
+        <fieldset>
+            <legend>ADD NEW PART FORM</legend>
+            <div>
+                <label>Part Name:
+                    <input type="text" name="part_name_input" size="30" maxlength="100" required>
+                </label>
+            </div>
+            <div>
+                <label>Part Cost:
+                    <input type="number" step="0.01" name="part_cost_input" size="10" maxlength="20">
+                </label>
+            </div>
+            <div>
+                <label>Part Vendor:
+                    <input type="text" name="part_vendor_input" size="30" maxlength="100">
+                </label>
+            </div>
+            <div>
+                <label>Part Current Stock:
+                    <input type="number" name="part_stock_input" size="10" maxlength="20">
+                </label>
+            </div>
+            <div>
+                <label>Part Lead Time (Days):
+                    <input type="number" name="part_lead_time_input" size="10" maxlength="20">
+                </label>
+            </div>
+            <div>
+                <input id="addpart_submit" type="submit" name="submit_type" value="Add Part">
+            </div>
+        </fieldset>
+    </form>
+    <br>
+</section>
+<section>
+    <fieldset>
+        <legend>CURRENT ACTIVE PART LIST AND INVENTORY</legend>
+        <table>
+        <thead> 
+            <th>Part ID #</th> 
+            <th>Name</th> 
+            <th>Cost</th>
+            <th>Vendor</th> 
+            <th>Inventory</th> 
+            <th>Lead Time (Days)</th>
+            <th></th>  
+        </thead> 
+        <tbody>
+            {{#each parts}} 
+            <tr> 
+                <td>{{partID}}</td> 
+                <td>{{partName}}</td> 
+                <td>{{partCost}}</td> 
+                <td>{{partVendor}}</td>
+                <td>{{partCurrentStock}}</td>
+                <td>{{partLeadTimeDays}}</td>
+                <td>
+                    <form id="deletepart" action="/parts" method="POST">
+                        <input type="hidden" name="part_choice" value={{partID}}>
+                        <input id="deletepart_submit" type="submit" name="submit_type" value="Delete Part">
+                    </form>
+                </td>
+            </tr> 
+            {{/each}} 
+        </tbody> 
+        </table> 
+        <br>
+    </fieldset>
+</section>

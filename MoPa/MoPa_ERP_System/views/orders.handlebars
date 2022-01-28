@@ -1,0 +1,56 @@
+
+<section>
+    <h1>MoPa Corporation</h1>
+    <h2>Order Manager</h2>
+</section>
+<section>
+    <div>This page shows the current quantity of active Orders by Customer and allows the user to search for a Customer by first or last name and then view or add Orders to that Customer.</div>
+</section>
+<section><br />
+<div>
+    <form id="searchByFirstName" action="/orders" method="POST">
+        <input type="text" name="customerFirstName" size="30"/>
+        <input id="searchByFirstName_submit" type="submit" name="submit_type" value="Search By First Name">
+    </form>
+</div>
+<div>
+    <form id="searchByLastName" action="/orders" method="POST">
+        <input type="text" name="customerLastName" size="30"/>
+        <input id="searchByLastName_submit" type="submit" name="submit_type" value="Search By Last Name">
+    </form>
+</div>
+<br>
+</section>
+<br>
+<section>
+    <fieldset>
+        <legend>ORDERS BY CUSTOMER</legend>
+            <table>
+            <thead>
+                <tr>
+                    <th><strong>First Name</strong></th>
+                    <th><strong>Last Name</strong></th>
+                    <th><strong>Email</strong></th>
+                    <th><strong>Active Order Qty.</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each customerOrders}} 
+                <tr>
+                    <td>{{customerFirstName}}</td>
+                    <td>{{customerLastName}}</td>
+                    <td>{{customerEmail}}</td>
+                    <td>{{orderQty}}</td>
+                    <td>
+                        <form id="selectCustomer" action="/order_creator" method="GET">
+                            <input type="hidden" name="customerID" value={{customerID}}>
+                            <input id="selectCustomerSubmit" type="submit" value="View/Add Orders">
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}        
+            </tbody>
+            </table>
+    </fieldset>
+</section>
+<br>

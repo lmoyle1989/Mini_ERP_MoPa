@@ -1,0 +1,88 @@
+<section>
+    <h1>MoPa Corporation</h1>
+    <h2>Customer Info Page</h2>
+</section>
+<section>
+    <div>This page shows Customer information. New Customers can be added and deleted and their attribute information can be edited and Addresses can be added to each customer individually.</div>
+</section>
+<section>
+    <br />
+        <form id="addCustomer" action="/customers" method="POST">
+            <fieldset>
+                <legend>ADD NEW CUSTOMER</legend> <br />
+                <div>
+                    <label>First Name: 
+                        <input maxlength="50" name="first_name_input" size="20" type="text" /> 
+                    </label>
+                </div>
+                <div>
+                    <label>Last Name: 
+                        <input maxlength="50" name="last_name_input" size="20" type="text" /> 
+                    </label>
+                </div>
+                <div>
+                    <label>Email: 
+                        <input maxlength="100" name="email_input" size="30" type="text" /> 
+                    </label>
+                </div>
+                <div>
+                    <label>Phone Number: 
+                        <input maxlength="10" name="phone_number_input" size="10" type="tel" /> 
+                    </label>
+                <br/>
+                    <input id="addCustomerSubmit" type="submit" name= "submit_type" value="Add Customer" />
+                </div>
+            </fieldset>
+        </form>
+</section>
+<br>
+<section>
+    <fieldset>
+        <legend>CUSTOMERS</legend>
+            <table>
+            <thead>
+                <tr>
+                    <th><string>Cust. ID</strong></th>
+                    <th><strong>First Name</strong></th>
+                    <th><strong>Last Name</strong></th>
+                    <th><strong>Email</strong></th>
+                    <th><strong>Phone</strong></th>
+                    <th><strong>Address</strong></th>
+                    <th></th> 
+                    <th></th> 
+                </tr>
+            </thead>
+            <tbody>
+                {{#each customers}} 
+                <tr>
+                    <td>{{customerID}}</td>
+                    <td>{{customerFirstName}}</td>
+                    <td>{{customerLastName}}</td>
+                    <td>{{customerEmail}}</td>
+                    <td>{{customerPhone}}</td>
+                    <td>
+                        <ul>
+                            {{#each addressInfo}}
+                            <li>{{street}} {{city}}, {{state}} {{zipCode}} </li>
+                            {{/each}}
+                        </ul>
+                    </td>
+                    <td>
+                        <form id="updateAddresses" action="/addresses" method="GET">
+                            <input type="hidden" name="customerID" value={{customerID}}>
+                            <input id="updateAddressesSubmit" type="submit" value="Edit Customer/Add Address">
+                        </form>
+                    </td>
+                    <td>
+                        <form id="deleteCustomer" action="/customers" method="POST">
+                            <input type="hidden" name="customer_choice" value={{customerID}}>
+                            <input id="deleteCustomerSubmit" type="submit" name="submit_type" value="Delete Customer">
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}        
+            </tbody>
+            </table>
+    </fieldset>
+</section>
+   
